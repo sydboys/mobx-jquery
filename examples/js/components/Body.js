@@ -1,16 +1,18 @@
 import $ from 'jquery'
 
-const renderBody = (inject) => {
-    const Body = (props = {}) => {
-        return `<h1>${props.body}</h1>`
-    }
-    const render = inject((store = {}) => {
+const Body = (props = {}) => {
+    return `<h1>${props.body}</h1>`
+}
+const renderBody = (props = {}) => {
+    console.log('body render')
+    const body = Body(props)
+    $('#body').html(body);
+}
+const render = (inject) => {
+    inject((store = {}) => {
         return {
             body: store.body
         }
-    })((props = {}) => {
-        const body = Body(props)
-        $('#body').html(body);
-    })
+    })(renderBody)
 }
-export default renderBody;
+export default render;

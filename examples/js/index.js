@@ -9,8 +9,8 @@ import {
 } from '../../lib/mobx-jquery'
 
 $(function() {
+    const inject = provider(store);
     const render = () => {
-        const inject = provider(store);
         renderBody(inject);
         renderHeader(inject);
         renderFooter(inject);

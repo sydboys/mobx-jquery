@@ -1,18 +1,19 @@
 import $ from 'jquery'
 
-const renderHeader = (inject) => {
-    const Header = (props = {}) => {
-        return `<header>${props.header}</header>`
-    }
-    const render = 
-        inject((store = {}) => {
-            return {
-                header: store.header,
-                clickHeader: store.clickHeader
-            }
-        })((props) => {
-            const header = Header(props);
-            $('#header').html(header).off('click').on('click', props.clickHeader)
-        })
+const Header = (props = {}) => {
+    return `<header>${props.header}</header>`
 }
-export default renderHeader
+const renderHeader = (props = {}) => {
+    console.log('header render')
+    const header = Header(props);
+    $('#header').html(header).off('click').on('click', props.clickHeader)
+}
+const render = (inject) => {
+    inject((store = {}) => {
+        return {
+            header: store.header,
+            clickHeader: store.clickHeader
+        }
+    })(renderHeader)
+}
+export default render

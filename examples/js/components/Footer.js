@@ -21,15 +21,17 @@ class Footer {
         return `<footer>${this.props.footer} ${this.count}</footer>`
     }
 }
-const renderFooter = (inject) => {
-    const render = inject((store = {}) => {
+const renderFooter = (props = {}) => {
+    const footer = Footer.getInstance(props);
+    const renderHTML = footer.render();
+    $('#footer').html(renderHTML).off('click').on('click', footer.changeCount)
+}
+
+const render = (inject) => {
+    inject((store = {}) => {
         return {
             footer: store.footer
         }
-    })((props = {}) => {
-        const footer = Footer.getInstance(props);
-        const renderHTML = footer.render();
-        $('#footer').html(renderHTML).off('click').on('click', footer.changeCount)
-    })
+    })(renderFooter)
 }
-export default renderFooter
+export default render
